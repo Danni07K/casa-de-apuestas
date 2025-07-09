@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<style>
+    .dashboard-main-content {
+        padding-top: 90px !important;
+    }
+    .sticky-top {
+        z-index: 900 !important;
+    }
+</style>
+<div class="container-fluid dashboard-main-content">
     <!-- Notificaciones de logros nuevos -->
     @if(count($newAchievements) > 0)
         <div class="achievement-notifications mb-4" id="achievement-toasts">

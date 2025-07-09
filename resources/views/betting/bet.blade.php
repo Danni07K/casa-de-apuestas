@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success text-center" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    <div class="mb-3">
+        <a href="{{ route('betting.index') }}" class="btn btn-outline-light">← Volver a partidos</a>
+    </div>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -208,25 +216,15 @@
             width: 100%;
         }
     }
+    /* Forzar que el botón seleccionado se quede verde */
+    input[type="radio"].btn-check:checked + label.btn-success {
+        background-color: #2FD35D !important;
+        color: #232733 !important;
+        border-color: #2FD35D !important;
+    }
 </style>
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
-        <!-- Sidebar -->
-        <div class="col-lg-2 col-md-3 mb-3">
-            <div class="sidebar">
-                <div class="menu-title">LIGAS PRINCIPALES</div>
-                <div class="league-item active">⚽ Liga 1</div>
-                <div class="league-item">🇪🇸 La Liga</div>
-                <div class="league-item">🇮🇹 Serie A</div>
-                <div class="league-item">🇩🇪 Bundesliga</div>
-                <div class="league-item">🏆 Copa de Francia</div>
-                <div class="league-item">🏴 Premier League</div>
-                <div class="league-item">⭐ Champions</div>
-                <div class="league-item">🏅 Europa League</div>
-                <div class="league-item">🇺🇸 MLS</div>
-                <div class="league-item">🇦🇷 Liga Profesional</div>
-            </div>
-        </div>
         <!-- Main Content -->
         <div class="col-lg-7 col-md-9 mb-3">
             <div class="main-bg p-4">
@@ -261,11 +259,11 @@
                         <div class="d-flex flex-wrap justify-content-center align-items-center mb-3 gap-3">
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="selection" id="home1x2" value="{{ $event->home_team }}" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="home1x2">{{ $event->home_team }}<br><span class="small">{{ number_format($event->home_odds,2) }}</span></label>
+                                <label class="btn btn-success" for="home1x2">{{ $event->home_team }}<br><span class="small">{{ number_format($event->home_odds,2) }}</span></label>
                                 <input type="radio" class="btn-check" name="selection" id="draw1x2" value="EMPATE" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="draw1x2">Empate<br><span class="small">{{ number_format($event->draw_odds,2) }}</span></label>
+                                <label class="btn btn-success" for="draw1x2">Empate<br><span class="small">{{ number_format($event->draw_odds,2) }}</span></label>
                                 <input type="radio" class="btn-check" name="selection" id="away1x2" value="{{ $event->away_team }}" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="away1x2">{{ $event->away_team }}<br><span class="small">{{ number_format($event->away_odds,2) }}</span></label>
+                                <label class="btn btn-success" for="away1x2">{{ $event->away_team }}<br><span class="small">{{ number_format($event->away_odds,2) }}</span></label>
                             </div>
                             <input type="number" name="amount" class="form-control ms-3" placeholder="Monto" min="1" step="0.01" id="amount1x2" required style="max-width:120px;">
                         </div>
@@ -290,9 +288,9 @@
                         <div class="d-flex flex-wrap justify-content-center align-items-center mb-3 gap-3">
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="selection" id="home_gol" value="{{ $event->home_team }}" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="home_gol">{{ $event->home_team }}</label>
+                                <label class="btn btn-success" for="home_gol">{{ $event->home_team }}</label>
                                 <input type="radio" class="btn-check" name="selection" id="away_gol" value="{{ $event->away_team }}" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="away_gol">{{ $event->away_team }}</label>
+                                <label class="btn btn-success" for="away_gol">{{ $event->away_team }}</label>
                             </div>
                             <input type="number" name="amount" class="form-control ms-3" placeholder="Monto" min="1" step="0.01" required style="max-width:120px;">
                         </div>
@@ -314,9 +312,9 @@
                         <div class="d-flex flex-wrap justify-content-center align-items-center mb-3 gap-3">
                             <div class="btn-group" role="group">
                                 <input type="radio" class="btn-check" name="selection" id="si" value="SI" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="si">SI</label>
+                                <label class="btn btn-success" for="si">SI</label>
                                 <input type="radio" class="btn-check" name="selection" id="no" value="NO" autocomplete="off" required>
-                                <label class="btn btn-outline-success" for="no">NO</label>
+                                <label class="btn btn-success" for="no">NO</label>
                             </div>
                             <input type="number" name="amount" class="form-control ms-3" placeholder="Monto" min="1" step="0.01" required style="max-width:120px;">
                         </div>
@@ -337,14 +335,45 @@
             </div>
             <div class="bets-panel">
                 <div class="fw-bold mb-2">Apuestas Realizadas:</div>
-                <div class="text-muted">(Aquí aparecerán tus apuestas recientes)</div>
+                @php
+                    $statusLabels = [
+                        'pending' => 'Pendiente',
+                        'won' => 'Ganada',
+                        'lost' => 'Perdida',
+                        'cancelled' => 'Cancelada',
+                        'cashed_out' => 'Cashout',
+                    ];
+                @endphp
+                @if(isset($recentBets) && $recentBets->count())
+                    <ul class="list-group">
+                        @foreach($recentBets as $bet)
+                            <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center" style="border: none;">
+                                <span>
+                                    <strong>{{ $bet->event->home_team }} vs {{ $bet->event->away_team }}</strong><br>
+                                    <small>{{ ucfirst($bet->bet_type) }}: <b>{{ $bet->selection }}</b> | Monto: PEN {{ number_format($bet->amount,2) }}</small>
+                                </span>
+                                <span class="badge rounded-pill
+                                    @if($bet->status == 'pending') bg-warning text-dark
+                                    @elseif($bet->status == 'won') bg-success
+                                    @elseif($bet->status == 'lost') bg-danger
+                                    @else bg-secondary
+                                    @endif
+                                ">
+                                    {{ $statusLabels[$bet->status] ?? ucfirst($bet->status) }}
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="text-muted">(No tienes apuestas recientes)</div>
+                @endif
             </div>
         </div>
     </div>
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 // 1x2
 const radios1x2 = document.querySelectorAll('#form1x2 input[name="selection"]');
@@ -376,4 +405,4 @@ document.getElementById('form1x2').addEventListener('submit', function(e) {
     else if(document.getElementById('away1x2').checked) oddsInput.value = {{ $event->away_odds }};
 });
 </script>
-@endsection 
+@endpush

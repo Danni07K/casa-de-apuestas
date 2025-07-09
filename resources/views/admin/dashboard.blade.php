@@ -141,6 +141,21 @@
 
 @push('styles')
 <style>
+.card, .table, .list-group-item, .modal-content {
+    background: #181c2a !important;
+    color: #fff !important;
+    border-color: #232733 !important;
+}
+.table th, .table td {
+    color: #fff !important;
+    border-color: #232733 !important;
+}
+.table thead {
+    background: #232733 !important;
+}
+.btn, .badge {
+    border-radius: 8px !important;
+}
 .text-primary {
     color: var(--primary-color) !important;
 }
@@ -154,4 +169,4 @@
     color: var(--text-color);
 }
 </style>
-@endpush 
+@endpush

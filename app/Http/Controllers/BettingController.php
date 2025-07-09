@@ -17,16 +17,17 @@ class BettingController extends Controller
     /**
      * Display a listing of the bets.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Mostrar eventos programados, en vivo y finalizados creados por el admin
-        $events = \App\Models\Event::whereIn('status', ['scheduled', 'live', 'finished'])
-            ->orderBy('date', 'asc')
-            ->orderBy('start_time', 'asc')
-            ->get();
+        $query = \App\Models\Event::query()->where('status', 'scheduled')->where('start_time', '>', now());
 
-        // Mostrar las apuestas recientes del usuario autenticado (últimas 5)
-        $recentBets = [];
+        if ($request->has('league')) {
+            $query->where('league', $request->league);
+        }
+
+        $events = $query->get();
+
+        $recentBets = null;
         if (auth()->check()) {
             $recentBets = \App\Models\Bet::with('event')
                 ->where('user_id', auth()->id())
@@ -140,7 +141,13 @@ class BettingController extends Controller
 
     public function bet(Event $event)
     {
-        return view('betting.bet', compact('event'));
+        $recentBets = \App\Models\Bet::with('event')
+            ->where('user_id', auth()->id())
+            ->orderByDesc('created_at')
+            ->take(5)
+            ->get();
+
+        return view('betting.bet', compact('event', 'recentBets'));
     }
 
     public function placeBet(Request $request, Event $event)
@@ -163,7 +170,7 @@ class BettingController extends Controller
         // Descontar saldo
         $user->balance -= $validated['amount'];
         $user->save();
-        return back()->with('success', '¡Apuesta realizada exitosamente!');
+        return redirect()->route('betting.bet', $event->id)->with('success', '¡Apuesta realizada con éxito!');
     }
 
     public function cancel(Bet $bet)
@@ -227,4 +234,4 @@ class BettingController extends Controller
         $user->notifications()->where('is_read', false)->update(['is_read' => true]);
         return response()->json(['success' => true]);
     }
-} 
+}
