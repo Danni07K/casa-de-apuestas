@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/betting/history', [BettingController::class, 'history'])->name('betting.history');
-    
+
     // Rutas de depósitos para usuarios
     Route::get('/deposits', [DepositController::class, 'index'])->name('user.deposits.index');
     Route::post('/deposits', [DepositController::class, 'store'])->name('user.deposits.store');
@@ -96,4 +96,12 @@ Route::prefix('admin')
 Route::get('/terms', function () {
     return view('auth.terms');
 })->name('terms');
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard/leaderboard', [App\Http\Controllers\DashboardController::class, 'leaderboard'])->name('dashboard.leaderboard');
+Route::get('/dashboard/stats', [App\Http\Controllers\DashboardController::class, 'stats'])->name('dashboard.stats');
+Route::get('/parlays', [App\Http\Controllers\ParlayController::class, 'index'])->name('parlays.index');
+Route::get('/parlays/create', [App\Http\Controllers\ParlayController::class, 'create'])->name('parlays.create');
+Route::get('/parlays/{parlay}', [App\Http\Controllers\ParlayController::class, 'show'])->name('parlays.show');
+Route::post('/parlays/{parlay}/cancel', [App\Http\Controllers\ParlayController::class, 'cancel'])->name('parlays.cancel');
 

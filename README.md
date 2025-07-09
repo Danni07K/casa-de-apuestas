@@ -1,61 +1,361 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏆 TecBet - Plataforma de Apuestas Deportivas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
+  <img src="https://img.shields.io/badge/Laravel-12.0-red?style=for-the-badge&logo=laravel" alt="Laravel 12.0">
+  <img src="https://img.shields.io/badge/PHP-8.2+-blue?style=for-the-badge&logo=php" alt="PHP 8.2+">
+  <img src="https://img.shields.io/badge/TailwindCSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="TailwindCSS 4.0">
+  <img src="https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite" alt="Vite 6.2">
+</div>
 
-## About Laravel
+## 📋 Descripción
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**TecBet** es una plataforma moderna de apuestas deportivas desarrollada con Laravel 12, diseñada para ofrecer una experiencia de usuario excepcional con funcionalidades avanzadas de gestión de apuestas, eventos deportivos y administración completa.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🎯 Características Principales
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **🎮 Sistema de Apuestas Completo**: Apuestas 1x2, primer gol, ambos marcan
+- **⚽ Gestión de Eventos Deportivos**: Creación y administración de partidos
+- **💰 Sistema de Depósitos**: Múltiples métodos de pago (Yape, Plin, BCP, Visa, etc.)
+- **👤 Panel de Usuario**: Historial de apuestas, perfil personalizado
+- **🔧 Panel Administrativo**: Gestión completa de eventos, tipos de apuestas y usuarios
+- **📱 Diseño Responsivo**: Interfaz moderna y adaptable a todos los dispositivos
+- **🔔 Sistema de Notificaciones**: Alertas en tiempo real
+- **📊 Dashboard Analítico**: Estadísticas y reportes detallados
 
-## Learning Laravel
+## 🚀 Tecnologías Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Backend
+- **Laravel 12.0** - Framework PHP moderno
+- **PHP 8.2+** - Lenguaje de programación
+- **MySQL/PostgreSQL** - Base de datos
+- **Laravel Sanctum** - Autenticación API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Frontend
+- **TailwindCSS 4.0** - Framework CSS utility-first
+- **Vite 6.2** - Build tool moderno
+- **Bootstrap 5** - Componentes UI
+- **JavaScript ES6+** - Interactividad
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Herramientas de Desarrollo
+- **Laravel Sail** - Entorno Docker
+- **Laravel Pint** - Formateo de código
+- **Pest PHP** - Testing framework
+- **Laravel Pail** - Debugging avanzado
 
-## Laravel Sponsors
+## 📦 Instalación
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerrequisitos
 
-### Premium Partners
+- PHP 8.2 o superior
+- Composer 2.0+
+- Node.js 18+ y npm
+- MySQL 8.0+ o PostgreSQL 13+
+- Git
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Pasos de Instalación
 
-## Contributing
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/tu-usuario/tecbet.git
+cd tecbet
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Instalar dependencias PHP**
+```bash
+composer install
+```
 
-## Code of Conduct
+3. **Instalar dependencias Node.js**
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Configurar variables de entorno**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+5. **Configurar la base de datos en `.env`**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tecbet
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_password
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **Ejecutar migraciones y seeders**
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-## License
+7. **Compilar assets**
+```bash
+npm run build
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. **Configurar permisos de almacenamiento**
+```bash
+php artisan storage:link
+chmod -R 775 storage bootstrap/cache
+```
+
+## 🎮 Uso
+
+### Comandos de Desarrollo
+
+```bash
+# Iniciar servidor de desarrollo
+php artisan serve
+
+# Compilar assets en modo desarrollo
+npm run dev
+
+# Compilar assets para producción
+npm run build
+
+# Ejecutar tests
+php artisan test
+
+# Ejecutar tests con Pest
+./vendor/bin/pest
+
+# Limpiar caché
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+# Optimizar para producción
+php artisan optimize
+```
+
+### Comandos de Base de Datos
+
+```bash
+# Crear nueva migración
+php artisan make:migration nombre_migracion
+
+# Ejecutar migraciones
+php artisan migrate
+
+# Revertir última migración
+php artisan migrate:rollback
+
+# Revertir todas las migraciones
+php artisan migrate:reset
+
+# Ejecutar seeders
+php artisan db:seed
+
+# Crear seeder
+php artisan make:seeder NombreSeeder
+```
+
+### Comandos de Laravel
+
+```bash
+# Crear controlador
+php artisan make:controller NombreController
+
+# Crear modelo
+php artisan make:model NombreModelo
+
+# Crear modelo con migración
+php artisan make:model NombreModelo -m
+
+# Crear middleware
+php artisan make:middleware NombreMiddleware
+
+# Listar rutas
+php artisan route:list
+
+# Tinker (consola interactiva)
+php artisan tinker
+```
+
+## 🏗️ Estructura del Proyecto
+
+```
+tecbet/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/          # Controladores del panel admin
+│   │   │   ├── AuthController.php
+│   │   │   ├── BettingController.php
+│   │   │   └── ...
+│   │   └── Middleware/
+│   ├── Models/                 # Modelos Eloquent
+│   └── Policies/              # Políticas de autorización
+├── database/
+│   ├── migrations/            # Migraciones de BD
+│   ├── seeders/              # Datos de prueba
+│   └── factories/            # Factories para testing
+├── resources/
+│   ├── views/                # Vistas Blade
+│   │   ├── admin/           # Panel administrativo
+│   │   ├── betting/         # Vistas de apuestas
+│   │   └── layouts/         # Layouts principales
+│   ├── css/                 # Estilos CSS
+│   └── js/                  # JavaScript
+├── routes/
+│   ├── web.php              # Rutas web
+│   └── api.php              # Rutas API
+└── public/                  # Archivos públicos
+```
+
+## 🔧 Configuración
+
+### Variables de Entorno Importantes
+
+```env
+# Configuración de la aplicación
+APP_NAME="TecBet"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+# Configuración de base de datos
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tecbet
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Configuración de correo
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+# Configuración de sesión
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+```
+
+## 🧪 Testing
+
+```bash
+# Ejecutar todos los tests
+php artisan test
+
+# Ejecutar tests específicos
+php artisan test --filter NombreTest
+
+# Ejecutar tests con cobertura
+php artisan test --coverage
+
+# Ejecutar tests de Pest
+./vendor/bin/pest
+
+# Ejecutar tests en paralelo
+./vendor/bin/pest --parallel
+```
+
+## 📊 Base de Datos
+
+### Tablas Principales
+
+- **users** - Usuarios del sistema
+- **events** - Eventos deportivos
+- **bets** - Apuestas realizadas
+- **bet_types** - Tipos de apuestas disponibles
+- **deposits** - Depósitos de usuarios
+- **payment_methods** - Métodos de pago
+- **announcements** - Anuncios del sistema
+- **notifications** - Notificaciones
+
+### Relaciones Principales
+
+```php
+// User -> Bet (1:N)
+// Event -> Bet (1:N)
+// BetType -> Bet (1:N)
+// User -> Deposit (1:N)
+// PaymentMethod -> Deposit (1:N)
+```
+
+## 🚀 Despliegue
+
+### Producción
+
+1. **Configurar servidor**
+```bash
+# Instalar dependencias de producción
+composer install --optimize-autoloader --no-dev
+
+# Compilar assets
+npm run build
+
+# Configurar permisos
+chmod -R 755 storage bootstrap/cache
+```
+
+2. **Configurar supervisor (para colas)**
+```bash
+# Crear archivo de configuración
+sudo nano /etc/supervisor/conf.d/tecbet-worker.conf
+```
+
+3. **Configurar cron jobs**
+```bash
+# Agregar al crontab
+* * * * * cd /path/to/tecbet && php artisan schedule:run >> /dev/null 2>&1
+```
+
+### Docker (Laravel Sail)
+
+```bash
+# Iniciar con Docker
+./vendor/bin/sail up
+
+# Ejecutar comandos con Docker
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail npm run dev
+```
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👥 Autores
+
+- **Luis Alberto Flores** - *Desarrollo inicial* - [@tu-usuario](https://github.com/tu-usuario)
+
+## 🙏 Agradecimientos
+
+- Laravel Team por el excelente framework
+- TailwindCSS por el sistema de diseño
+- Comunidad de desarrolladores PHP
+
+## 📞 Soporte
+
+Si tienes alguna pregunta o necesitas ayuda:
+
+- 📧 Email: soporte@tecbet.com
+- 💬 Discord: [Servidor TecBet](https://discord.gg/tecbet)
+- 📖 Documentación: [docs.tecbet.com](https://docs.tecbet.com)
+
+---
+
+<div align="center">
+  <p>Hecho con ❤️ por el equipo de TecBet</p>
+  <p>⭐ Si te gusta este proyecto, dale una estrella en GitHub</p>
+</div> 

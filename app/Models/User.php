@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Deposit;
+use App\Models\Achievement;
 
 class User extends Authenticatable
 {
@@ -27,7 +28,7 @@ class User extends Authenticatable
         'password',
         'role',
     ];
-    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -71,7 +72,7 @@ class User extends Authenticatable
 
     public function bettings()
     {
-        return $this->hasMany(Betting::class);
+        return $this->hasMany(Bet::class);
     }
 
     public function bets()
@@ -87,5 +88,80 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(\App\Models\Notification::class);
+    }
+
+    /**
+     * Relación many-to-many con logros (achievements).
+     */
+    public function achievements()
+    {
+        return $this->belongsToMany(\App\Models\Achievement::class, 'user_achievements')
+            ->withPivot('unlocked_at');
+    }
+
+    /**
+     * Relación uno a uno con el nivel del usuario.
+     */
+    public function userLevel()
+    {
+        return $this->hasOne(\App\Models\UserLevel::class);
+    }
+
+    /**
+     * Calcula el porcentaje de apuestas ganadas sobre el total de apuestas.
+     * @return float
+     */
+    public function getWinRate(): float
+    {
+        $total = $this->bets()->count();
+        if ($total === 0) return 0;
+        $won = $this->bets()->where('status', 'won')->count();
+        return round(($won / $total) * 100, 1);
+    }
+
+    /**
+     * Calcula la racha actual de apuestas ganadas consecutivas.
+     * @return int
+     */
+    public function getWinningStreak(): int
+    {
+        $bets = $this->bets()->orderByDesc('created_at')->get();
+        $streak = 0;
+        foreach ($bets as $bet) {
+            if ($bet->status === 'won') {
+                $streak++;
+            } else {
+                break;
+            }
+        }
+        return $streak;
+    }
+
+    /**
+     * Devuelve el total apostado por el usuario (suma de amount de todas las apuestas).
+     * @return float
+     */
+    public function getTotalWagered(): float
+    {
+        return (float) $this->bets()->sum('amount');
+    }
+
+    /**
+     * Devuelve el total ganado por el usuario (suma de amount * odds de apuestas ganadas).
+     * @return float
+     */
+    public function getTotalWon(): float
+    {
+        return (float) $this->bets()->where('status', 'won')->get()->sum(function($bet) {
+            return $bet->amount * $bet->odds;
+        });
+    }
+
+    /**
+     * Relación con los parlays del usuario.
+     */
+    public function parlays()
+    {
+        return $this->hasMany(\App\Models\Parlay::class);
     }
 }

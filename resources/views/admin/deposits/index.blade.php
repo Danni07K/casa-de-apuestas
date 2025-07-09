@@ -6,24 +6,12 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Gestión de Depósitos</h5>
-        {{-- El botón para crear podría ir aquí si tienes una vista para ello --}}
-        {{-- <a href="{{ route('admin.deposits.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.deposits.create') }}" class="btn btn-primary">
             <i class="fas fa-plus me-2"></i> Nuevo Depósito Manual
-        </a> --}}
+        </a>
     </div>
 
     <div class="card-body">
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead>

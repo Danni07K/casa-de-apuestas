@@ -2,63 +2,76 @@
 
 @section('content')
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     body {
-        background: #181c23 !important;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at center, #344473 0%, #1a223a 100%) !important;
+        font-family: 'Inter', 'Outfit', Arial, sans-serif;
     }
     .main-bg {
-        background: linear-gradient(135deg, #26304a 0%, #2a3b5a 100%);
-        border-radius: 18px;
-        box-shadow: 0 4px 24px 0 rgba(0,0,0,0.2);
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
         padding: 0;
     }
     .sidebar {
-        background: #232733;
-        border-radius: 18px;
-        padding: 24px 0 24px 0;
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
+        padding: 28px 0 28px 0;
         min-height: 700px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
     }
-    .sidebar .menu-ti   tle {
+    .sidebar .menu-title {
         color: #fff;
-        font-weight: bold;
-        margin-bottom: 18px;
-        font-size: 1.1rem;
-        padding-left: 24px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        margin-bottom: 22px;
+        font-size: 1.15rem;
+        padding-left: 28px;
+        letter-spacing: 1px;
     }
     .sidebar .league-item {
-        color: #bfc9da;
-        padding: 10px 24px;
-        border-radius: 8px;
-        margin-bottom: 6px;
+        color: #fff;
+        background: transparent;
+        padding: 12px 28px;
+        border-radius: 12px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         cursor: pointer;
+        font-size: 1.08rem;
         transition: background 0.2s;
     }
     .sidebar .league-item.active, .sidebar .league-item:hover {
-        background: #2fd35d33;
+        background: #3a4a6a;
         color: #fff;
     }
     .scoreboard {
-        background: linear-gradient(90deg, #26304a 60%, #2a3b5a 100%);
-        border-radius: 18px;
-        padding: 24px 0 12px 0;
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
+        padding: 28px 0 18px 0;
         margin-bottom: 18px;
         color: #fff;
         text-align: center;
         position: relative;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .scoreboard .team-logo {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         object-fit: contain;
         background: #232733;
         border-radius: 50%;
-        border: 2px solid #2fd35d;
+        border: 2px solid #2FD35D;
         margin-bottom: 8px;
     }
     .scoreboard .score {
-        font-size: 2.8rem;
+        font-size: 3.2rem;
         font-weight: bold;
         margin: 0 18px;
     }
@@ -72,40 +85,50 @@
         color: #bfc9da;
         border-radius: 8px;
         padding: 4px 16px;
-        font-size: 0.95rem;
+        font-size: 1rem;
         margin-bottom: 10px;
         display: inline-block;
     }
+    .scoreboard .team-name {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 8px;
+    }
     .bet-section {
-        background: linear-gradient(135deg, #26304a 0%, #2a3b5a 100%);
-        border-radius: 18px;
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
         margin-bottom: 18px;
-        padding: 18px 18px 10px 18px;
+        padding: 22px 22px 14px 22px;
         color: #fff;
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
     }
     .bet-section .fw-bold {
-        color: #2fd35d;
+        color: #2FD35D;
+        font-size: 1.1rem;
+        font-family: 'Outfit', sans-serif;
     }
     .bet-section .bet-helper-text {
         color: #fff !important;
         font-weight: 400;
+        font-size: 1rem;
     }
     .bet-section .btn-group .btn {
         min-width: 120px;
         font-size: 1.1rem;
-        border-radius: 18px !important;
-        margin-right: 12px;
-        margin-bottom: 6px;
+        border-radius: 16px !important;
+        margin-right: 16px;
+        margin-bottom: 8px;
         background: #3a4a6a;
         color: #fff;
         border: none;
         font-weight: 500;
         box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
         transition: background 0.2s, color 0.2s;
+        padding: 12px 0;
     }
     .bet-section .btn-group .btn.active, .bet-section .btn-group .btn:active, .bet-section .btn-group .btn:focus, .bet-section .btn-group .btn:hover {
-        background: #2fd35d;
+        background: #2FD35D;
         color: #232733;
     }
     .bet-section .btn-group .btn:last-child {
@@ -114,30 +137,34 @@
     .bet-section input[type="number"] {
         background: #232733;
         color: #fff;
-        border: 1px solid #2fd35d;
-        border-radius: 8px;
+        border: 1px solid #2FD35D;
+        border-radius: 10px;
         width: 120px;
         font-size: 1.1rem;
         margin-left: 10px;
+        padding: 8px 12px;
     }
     .bet-section .btn-success {
-        background: #2fd35d;
+        background: #2FD35D;
         border: none;
-        border-radius: 18px;
+        border-radius: 16px;
         font-weight: bold;
-        font-size: 1.1rem;
-        padding: 8px 32px;
+        font-size: 1.15rem;
+        padding: 12px 0;
         margin: 0 auto;
         display: block;
-        margin-top: 12px;
+        margin-top: 16px;
+        width: 60%;
+        box-shadow: 0 2px 8px 0 rgba(47,211,93,0.10);
+        text-transform: lowercase;
     }
     .bet-section .btn-success:disabled {
         background: #bfc9da;
         color: #232733;
     }
     .live-panel {
-        background: #232733;
-        border-radius: 18px;
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
         padding: 18px;
         color: #fff;
         margin-bottom: 18px;
@@ -146,21 +173,40 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
     }
     .live-panel .live-icon {
         font-size: 2.5rem;
-        color: #2fd35d;
+        color: #2FD35D;
         margin-bottom: 10px;
     }
     .bets-panel {
-        background: #232733;
-        border-radius: 18px;
+        background: rgba(52, 68, 115, 0.92);
+        border-radius: 20px;
         padding: 18px;
         color: #fff;
         min-height: 180px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+    }
+    .bets-panel .fw-bold {
+        font-size: 1.1rem;
+        color: #fff;
+    }
+    .bets-panel .text-muted {
+        color: #bfc9da !important;
     }
     @media (max-width: 991px) {
         .sidebar { min-height: auto; }
+        .main-bg, .scoreboard, .bet-section, .live-panel, .bets-panel, .sidebar {
+            border-radius: 14px;
+        }
+        .bet-section .btn-group .btn {
+            min-width: 100px;
+            font-size: 1rem;
+        }
+        .bet-section .btn-success {
+            width: 100%;
+        }
     }
 </style>
 <div class="container-fluid py-4">

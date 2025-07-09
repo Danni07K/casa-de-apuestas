@@ -13,10 +13,22 @@
             @if(auth()->check())
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('betting.index') ? 'active' : '' }}" href="{{ route('betting.index') }}">Apuestas Deportivas</a>
+                        <a class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('betting.index') ? 'active' : '' }}" href="{{ route('betting.index') }}">
+                            <i class="fas fa-futbol"></i> Apuestas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('parlays.index') ? 'active' : '' }}" href="{{ route('parlays.index') }}">
+                            <i class="fas fa-layer-group"></i> Parlays
+                        </a>
                     </li>
                 </ul>
-                
+                @include('components.user-progress')
                 <div class="d-flex align-items-center ms-auto gap-3">
                     <div class="user-wallet">
                         <div class="dropdown">
@@ -445,7 +457,7 @@ async function fetchNotifications() {
         if (!res.ok) return;
         const notifications = await res.json();
         let unread = notifications.find(n => !n.read);
-        
+
         const notificationDot = document.getElementById('notification-dot');
         if (unread) {
             notificationDot.style.display = 'block';
@@ -493,4 +505,4 @@ async function handleNotificationClick() {
         console.error('Error handling notification click:', error);
     }
 }
-</script> 
+</script>
